@@ -119,10 +119,8 @@ Route::middleware(['admin'])->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
-    Route::middleware('auth')->group(function () {
-        Route::get('/profile', function () {
-            return view('frontend.profile');
-        });
+  Route::middleware('auth')->group(function () {
+    Route::view('/profile', 'frontend.profile');
 
      
         Route::post('/place-order',
