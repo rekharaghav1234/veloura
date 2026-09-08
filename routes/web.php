@@ -99,13 +99,6 @@ Route::get('/',
 Route::get('/cities/{districtId}', [CartController::class,'cities']);
 
     // cart
-
-    Route::get('/cart/update/{id}', function($id, Request $request) {
-        $cart = Cart::findOrFail($id);
-        $cart->quantity = $request->quantity;
-        $cart->save();
-        return redirect()->back()->with('success', 'Cart updated!');
-    })->name('cart.update');
     Route::post('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update');
 
 
@@ -131,12 +124,7 @@ Route::post('/logout', [LoginController::class, 'logout'])
             return view('frontend.profile');
         });
 
-        Route::post('/test', function () {
-            return response()->json([
-                'success' => true,
-                'message' => 'TEST OK'
-            ]);
-        });
+     
         Route::post('/place-order',
         [CartController::class, 'placeOrder']);
 
@@ -163,9 +151,6 @@ Route::post('/order/{id}/return',
     [OrderController::class,'submitReturn'])
     ->name('order.return.submit');
 
-    Route::get('/order-success', function () {
-        return view('frontend.order-success');
-    })->name('order.success');
 
     Route::post(
         '/admin/return-approval/{id}',
