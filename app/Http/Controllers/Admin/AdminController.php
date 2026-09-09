@@ -30,8 +30,8 @@ public function dashboard()
     
     $totalUsers = User::where('role','user')->count();
     // dd($totalUsers);
-    $totalReturns = Order::whereNotNull('return_request_status')->count();
-    dd($totalReturns);
+    // $totalReturns = Order::whereNotNull('return_request_status')->count();
+    // dd($totalReturns);
     $totalRevenue = Order::where('status', 'Delivered')->sum('total_amount');
     // Ya agar sabhi orders ka revenue chahiye to:
     // $totalRevenue = Order::sum('total_amount');
@@ -45,7 +45,7 @@ public function dashboard()
         'totalProducts',
         'totalOrders',
         'totalUsers',
-        'totalReturns',
+        // 'totalReturns',
         'totalRevenue',
         'pendingOrders',
         'deliveredOrders'
