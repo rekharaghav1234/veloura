@@ -54,8 +54,10 @@
                             @endphp
                             
                             <img src="{{ asset('uploads/products/'.$firstImage) }}"
-                                 class="product-img"
-                                 alt="{{ $product->name }}">
+                            class="product-img"
+                            style="width:72px;height:72px;max-width:72px;max-height:72px;object-fit:cover;display:block;border-radius:12px;"
+                            alt="{{ $product->name }}">
+                       
                             </td>
 
                             <!-- Name -->
