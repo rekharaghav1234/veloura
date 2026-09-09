@@ -63,6 +63,7 @@ public function loadProducts(Request $request)
 }
 public function loadBestSelling()
 {
+
     $bestSellingProducts = Product::select(
             'products.id',
             'products.name',
@@ -82,7 +83,7 @@ public function loadBestSelling()
         ->orderByDesc('total_sold')
         ->take(8)
         ->get();
-
+        
     return view('frontend.partials.best-selling', compact('bestSellingProducts'))->render();
 }
 

@@ -1,5 +1,5 @@
 
-  @extends('frontend.layouts.app')
+@extends('frontend.layouts.app')
 
 @section('content')
   
@@ -284,29 +284,30 @@
   </section>
 
 
-
-  <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
-    <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
-        <h4 class="text-uppercase">Best Selling Items</h4>
-        <a href="index.html" class="btn-link">View All Products</a>
-      </div>
-      <div class="swiper product-swiper open-up" data-aos="zoom-out">
-        <div class="swiper-wrapper d-flex" id="best-selling-section"> 
-          @include('frontend.partials.best-selling')
-
+  {{-- <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
+    <div class="container"> --}}
+      <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+        <div class="container">
+          <div class="d-flex flex-wrap justify-content-between align-items-center  mb-3">
+            <h4 class="text-uppercase">Our New Arrivals</h4>
+            {{-- <a href="index.html" class="btn-link">View All Products</a> --}}
+          </div>
+          <div class="swiper product-swiper open-up" data-aos="zoom-out">
+            <div class="swiper-wrapper d-flex" id="best-selling-section">
+              @include('frontend.partials.best-selling')
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+    
+        
+          <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+              <use xlink:href="#arrow-left"></use>
+            </svg></div>
+          <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+              <use xlink:href="#arrow-right"></use>
+            </svg></div>
         </div>
-        <div class="swiper-pagination"></div>
-      </div>
-
-      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
-          <use xlink:href="#arrow-left"></use>
-        </svg></div>
-      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
-          <use xlink:href="#arrow-right"></use>
-        </svg></div>
-    </div>
-  </section>
+      </section>
   <section class="py-5" id="#all-products">
     <div class="container">
         <h3 class="mb-4">All Products</h3>

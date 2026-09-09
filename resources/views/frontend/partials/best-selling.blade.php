@@ -1,5 +1,4 @@
-<div class="swiper product-swiper open-up" data-aos="zoom-out">
-    <div class="swiper-wrapper d-flex">
+
       @foreach($bestSellingProducts as $product)
       <div class="swiper-slide">
         <div class="product-item image-zoom-effect link-effect">
@@ -29,6 +28,5 @@
         </div>
       </div>
     @endforeach
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
+ 
+   
