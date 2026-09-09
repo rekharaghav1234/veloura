@@ -37,14 +37,14 @@
             </div>
         </div>
 
-        <div class="col-md-3 mb-4">
+        {{-- <div class="col-md-3 mb-4">
             <div class="card shadow border-0 bg-warning text-dark">
                 <div class="card-body text-center">
                     <h5>Return Requests</h5>
                     <h2>{{ $totalReturns }}</h2>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 

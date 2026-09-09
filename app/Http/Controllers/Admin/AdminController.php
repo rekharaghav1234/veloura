@@ -38,9 +38,9 @@ public function dashboard()
 
 
     $pendingOrders = Order::where('status','Pending')->count();
-
+    
     $deliveredOrders = Order::where('status','Delivered')->count();
-
+    // dd($deliveredOrders);
     return view('admin.dashboard', compact(
         'totalProducts',
         'totalOrders',
@@ -50,5 +50,6 @@ public function dashboard()
         'pendingOrders',
         'deliveredOrders'
     ));
+    
 }
 }
