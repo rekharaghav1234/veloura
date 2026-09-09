@@ -41,10 +41,13 @@
 
                         <!-- Image -->
                         <div class="col-md-2 col-4">
-                            <img src="{{ asset('uploads/products/'.$cart->product->image) }}"
+                            {{-- <img src="{{ asset('uploads/products/'.$cart->product->image) }}"
                                  class="product-image w-100"
                                  alt="{{ $cart->product->name }}"
-                                 onerror="this.src='{{ asset('images/placeholder.png') }}'">
+                                 onerror="this.src='{{ asset('images/placeholder.png') }}'"> --}}
+                                 <img src="{{ asset('uploads/products/'.$cart->product->first_image) }}"
+                                 class="product-image w-100"
+                                 alt="{{ $cart->product->name }}">
                         </div>
 
                         <!-- Name -->
