@@ -85,7 +85,7 @@ document.querySelector('input[name="payment_method"]:checked').value;
 console.log(paymentMethod);
 if(paymentMethod === 'COD')
 {
-    fetch('/place-order', {
+    fetch('{{ url("/place-order") }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

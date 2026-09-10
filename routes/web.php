@@ -123,8 +123,7 @@ Route::post('/logout', [LoginController::class, 'logout'])
     Route::view('/profile', 'frontend.profile');
 
      
-        Route::post('/place-order',
-        [CartController::class, 'placeOrder']);
+        Route::post('/place-order',[CartController::class, 'placeOrder']);
 
         Route::get('/add-to-cart/{id}',
             [CartController::class, 'addToCart']);

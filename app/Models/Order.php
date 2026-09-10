@@ -14,27 +14,17 @@ class Order extends Model
         'email',
         'phone',
 
-        'country',
-        'state',
-        'district',
-        'city',
-        'pincode',
-
-        'house_no',
-        'area',
-        'landmark',
-
         'address',
 
         'total_amount',
         'payment_method',
         'status',
 
-        'delivered_at',
+        // 'delivered_at',
 
-        'return_request_status',
-        'return_approval_status',
-        'return_process_status'
+        // 'return_request_status',
+        // 'return_approval_status',
+        // 'return_process_status'
     ];
 
     public function items()

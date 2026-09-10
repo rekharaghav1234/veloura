@@ -102,181 +102,71 @@ class CartController extends Controller
 
     public function placeOrder(Request $request)
     {
-        $checkoutData = session('checkout_data');
+        try {
     
-        if (!$checkoutData) {
+            $checkoutData = session('checkout_data');
+    
+            if (!$checkoutData) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Checkout data not found'
+                ]);
+            }
+    
+            $carts = Cart::where('user_id', Auth::id())->get();
+    
+            if ($carts->isEmpty()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Cart is empty'
+                ]);
+            }
+    
+            $total = 0;
+    
+            foreach ($carts as $cart) {
+                $total += $cart->product->price * $cart->quantity;
+            }
+    
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'name' => $checkoutData['name'],
+                'email' => $checkoutData['email'],
+                'phone' => $checkoutData['phone'],
+                'address' => $checkoutData['address'],
+                'total_amount' => $total,
+                'payment_method' => $request->payment_method,
+                'status' => 'Pending'
+            ]);
+    
+            foreach ($carts as $cart) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $cart->product_id,
+                    'quantity' => $cart->quantity,
+                    'price' => $cart->product->price,
+                ]);
+            }
+    
+            Cart::where('user_id', Auth::id())->delete();
+    
+            return response()->json([
+                'success' => true,
+                'order_id' => $order->id,
+                'message' => 'Order placed successfully'
+            ]);
+    
+        } catch (\Exception $e) {
+    
             return response()->json([
                 'success' => false,
-                'message' => 'Checkout data not found'
-            ]);
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile()
+            ], 500);
         }
-    
-        $carts = Cart::where('user_id', Auth::id())->get();
-    
-        if ($carts->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Cart is empty'
-            ]);
-        }
-    
-        $total = 0;
-    
-        foreach ($carts as $cart) {
-            $total += $cart->product->price * $cart->quantity;
-        }
-    
-        // $order = Order::create([
-        //     'user_id' => Auth::id(),
-    
-        //     'name' => $checkoutData['name'],
-        //     'email' => $checkoutData['email'],
-        //     'phone' => $checkoutData['phone'],
-    
-        //     'country' => $checkoutData['country'],
-        //     'state' => $checkoutData['state'],
-        //     'district' => $checkoutData['district'],
-        //     'city' => $checkoutData['city'],
-    
-        //     'pincode' => $checkoutData['pincode'],
-        //     'house_no' => $checkoutData['house_no'],
-        //     'area' => $checkoutData['area'],
-        //     'landmark' => $checkoutData['landmark'],
-    
-        //     'address' => $checkoutData['address'],
-    
-        //     'total_amount' => $total,
-        //     'payment_method' => $request->payment_method,
-        //     'status' => 'Pending'
-        // ]);
-    
-        // foreach ($carts as $cart) {
-    
-        //     OrderItem::create([
-        //         'order_id' => $order->id,
-        //         'product_id' => $cart->product_id,
-        //         'quantity' => $cart->quantity,
-        //         'price' => $cart->product->price,
-        //     ]);
-        // }
-    
-        // Cart::where('user_id', Auth::id())->delete();
-    
-        return response()->json([
-            'success' => true,
-            'data' => $checkoutData,
-            'data2' => $carts,
-           
-            // 'order_id' => $order->id
-        ]);
     }
    
-  
-    
-    // public function placeOrder(Request $request)
-    // {
-    //     try {
-    
-    //         // Checkout data
-    //         $checkoutData = session('checkout_data');
-    
-    //         if (!$checkoutData) {
-    //             return response()->json([
-    //                 'success' => false,
-    //                 'message' => 'Checkout data not found.'
-    //             ]);
-    //         }
-    
-    //         // User cart
-    //         $carts = Cart::where('user_id', Auth::id())->get();
-    
-    //         if ($carts->isEmpty()) {
-    //             return response()->json([
-    //                 'success' => false,
-    //                 'message' => 'Your cart is empty.'
-    //             ]);
-    //         }
-    
-    //         // Calculate Total
-    //         $total = 0;
-    
-    //         foreach ($carts as $cart) {
-    
-    //             $total += $cart->product->price * $cart->quantity;
-    
-    //         }
-    
-    //         // Create Order
-    //         $order = new Order();
-    
-    //         $order->user_id = Auth::id();
-    
-    //         $order->name = $checkoutData['name'];
-    //         $order->email = $checkoutData['email'];
-    //         $order->phone = $checkoutData['phone'];
-    
-    //         $order->country = $checkoutData['country'];
-    //         $order->state = $checkoutData['state'];
-    //         $order->district = $checkoutData['district'];
-    //         $order->city = $checkoutData['city'];
-    
-    //         $order->pincode = $checkoutData['pincode'];
-    //         $order->house_no = $checkoutData['house_no'];
-    //         $order->area = $checkoutData['area'];
-    //         $order->landmark = $checkoutData['landmark'];
-    
-    //         $order->address = $checkoutData['address'];
-    
-    //         $order->total_amount = $total;
-    
-    //         $order->payment_method = $request->payment_method ?? 'COD';
-    
-    //         $order->payment_status = 'pending';
-    
-    //         $order->order_status = 'placed';
-    
-    //         $order->status = 'Pending';
-    
-    //         $order->save();
-    
-    //         // Save Order Items
-    //         foreach ($carts as $cart) {
-    
-    //             OrderItem::create([
-    
-    //                 'order_id'   => $order->id,
-    //                 'product_id' => $cart->product_id,
-    //                 'quantity'   => $cart->quantity,
-    //                 'price'      => $cart->product->price
-    
-    //             ]);
-    
-    //         }
-    
-    //         // Clear Cart
-    //         Cart::where('user_id', Auth::id())->delete();
-    
-    //         return response()->json([
-    
-    //             'success' => true,
-    //             'message' => 'Order placed successfully.',
-    //             'order_id' => $order->id
-    
-    //         ]);
-    
-    //     } catch (\Throwable $e) {
-    
-    //         return response()->json([
-    
-    //             'success' => false,
-    //             'message' => $e->getMessage(),
-    //             'line' => $e->getLine(),
-    //             'file' => $e->getFile()
-    
-    //         ], 500);
-    
-    //     }
-    // }
     public function saveAddress(Request $request)
     {
         $request->validate([
