@@ -32,10 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         {{-- Page Header --}}
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <div>
-                <h2 class="fw-bold mb-1">My Orders</h2>
-                <p class="text-muted small mb-0">Manage and track all your orders in one place</p>
-            </div>
+          
             <a href="/" class="btn btn-outline-dark btn-sm rounded-pill px-4">
                 <i class="bi bi-arrow-left me-1"></i> Continue Shopping
             </a>
@@ -51,10 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="row align-items-center g-2">
                         <div class="col-md-4 col-6">
                             <div class="d-flex align-items-center gap-3">
-
-                                <span class="badge bg-light text-dark rounded-pill px-3 py-2 fw-semibold">
-                                    #{{ $order->id }}
-                                </span>
                             
                                 <small class="text-muted">
                                     <i class="bi bi-calendar3 me-1"></i>
