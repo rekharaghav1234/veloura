@@ -126,10 +126,27 @@
         const incrementBtns = document.querySelectorAll('.increment');
 
         function updateQuantity(cartId, newQty) {
-            // You can implement AJAX to update the database
-            // For now, just reload page to reflect changes
-            window.location.href = `/cart/update/${cartId}?quantity=${newQty}`;
-        }
+    const form = document.createElement('form');
+
+    form.method = 'POST';
+    form.action = `/cart/update/${cartId}`;
+
+    const csrf = document.createElement('input');
+    csrf.type = 'hidden';
+    csrf.name = '_token';
+    csrf.value = '{{ csrf_token() }}';
+
+    const quantity = document.createElement('input');
+    quantity.type = 'hidden';
+    quantity.name = 'quantity';
+    quantity.value = newQty;
+
+    form.appendChild(csrf);
+    form.appendChild(quantity);
+
+    document.body.appendChild(form);
+    form.submit();
+}
 
         decrementBtns.forEach(btn => {
             btn.addEventListener('click', function(e) {
