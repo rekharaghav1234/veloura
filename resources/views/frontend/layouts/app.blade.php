@@ -46,6 +46,82 @@
         .navbar{
             background:white;
         }
+        ```css
+/* =========================
+   MOBILE ADMIN MENU BUTTON
+========================= */
+
+/* .mobile-admin-menu {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    background: transparent;
+
+    color: #4B342C;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    cursor: pointer;
+    padding: 0;
+}
+
+.mobile-admin-menu:hover {
+    color: #B76E79;
+}
+
+
+
+
+@media (min-width: 992px) {
+
+    .mobile-admin-menu {
+        display: none !important;
+    }
+
+} */
+```
+
+#mobileMenuBtn {
+    all: unset !important;
+    cursor: pointer !important;
+    color: #4B342C !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+
+    width: 24px !important;
+    height: 30px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#mobileMenuBtn i {
+    display: block !important;
+    font-size: 24px !important;
+}
+
+#mobileMenuBtn:hover,
+#mobileMenuBtn:focus,
+#mobileMenuBtn:active {
+    all: unset !important;
+    cursor: pointer !important;
+    color: #B76E79 !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+
+    width: 24px !important;
+    height: 30px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
 
         .hero{
     height: 90vh;
@@ -1876,10 +1952,110 @@ body {
 <script src="{{ asset('js/plugins.js') }}"></script>
 <script src="{{ asset('js/SmoothScroll.js') }}"></script>
 <script src="{{ asset('js/script.min.js') }}"></script>
-<script>
+{{-- <script>
   document.getElementById('menuBtn').addEventListener('click', function () {
       document.getElementById('sidebar').classList.toggle('active');
   });
-  </script>
+  </script> --}}
+ 
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    const desktopMenuBtn = document.getElementById('menuBtn');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+    const closeBtn = document.getElementById('sidebarClose');
+
+
+    function openSidebar() {
+
+        if (!sidebar) return;
+
+        sidebar.classList.add('active');
+
+        if (overlay) {
+            overlay.classList.add('active');
+        }
+
+    }
+
+
+    function closeSidebar() {
+
+        if (!sidebar) return;
+
+        sidebar.classList.remove('active');
+
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+
+    }
+
+
+    /* Desktop Admin Menu */
+
+    if (desktopMenuBtn) {
+
+        desktopMenuBtn.addEventListener('click', function () {
+
+            if (sidebar.classList.contains('active')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+
+        });
+
+    }
+
+
+    /* Mobile 3-dot button */
+
+    if (mobileMenuBtn) {
+
+        mobileMenuBtn.addEventListener('click', function () {
+
+            openSidebar();
+
+        });
+
+    }
+
+
+    /* Close button */
+
+    if (closeBtn) {
+
+        closeBtn.addEventListener('click', function () {
+
+            closeSidebar();
+
+        });
+
+    }
+
+
+    /* Click outside sidebar */
+
+    if (overlay) {
+
+        overlay.addEventListener('click', function () {
+
+            closeSidebar();
+
+        });
+
+    }
+
+});
+
+</script>
+
+
 </body>
 </html>

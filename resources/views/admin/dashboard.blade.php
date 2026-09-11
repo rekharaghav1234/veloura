@@ -79,42 +79,61 @@
 
     </div>
 
+  
     <div class="card shadow border-0">
         <div class="card-header bg-dark text-white">
             Recent Orders
         </div>
-
-        <div class="card-body">
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Name</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach(\App\Models\Order::latest()->take(10)->get() as $order)
-
-                    <tr>
-                        <td>#{{ $order->id }}</td>
-                        <td>{{ $order->name }}</td>
-                        <td>₹{{ $order->total_amount }}</td>
-                        <td>{{ $order->status }}</td>
-                    </tr>
-
-                    @endforeach
-
-                </tbody>
-
-            </table>
-
+    
+        <div class="card-body p-0">
+    
+            {{-- Responsive Table --}}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 responsive-orders-table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Name</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+    
+                        @forelse(\App\Models\Order::latest()->take(10)->get() as $order)
+    
+                        <tr>
+                            <td>#{{ $order->id }}</td>
+                            <td>{{ $order->name }}</td>
+                            <td>₹{{ number_format($order->total_amount, 2) }}</td>
+                            <td>
+                                <span class="badge bg-secondary">
+                                    {{ $order->status }}
+                                </span>
+                            </td>
+                        </tr>
+    
+                        @empty
+    
+                        <tr>
+                            <td colspan="4" class="text-center py-4">
+                                No orders found.
+                            </td>
+                        </tr>
+    
+                        @endforelse
+    
+                    </tbody>
+                </table>
+            </div>
+    
         </div>
     </div>
+    
+   
+ 
+    
 
 </div>
 

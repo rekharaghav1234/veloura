@@ -31,7 +31,6 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
 
             'name'        => 'required|string|max:255',
@@ -117,7 +116,6 @@ class ProductController extends Controller
 
 public function update(Request $request, $id)
 {
-    // dd($request->all());
     $product = Product::findOrFail($id);
 
     $request->validate([
@@ -157,7 +155,7 @@ public function update(Request $request, $id)
             $images[] = $imageName;
         }
     }
-// dd($images);
+
     $product->update([
 
         'category_id' => $request->category_id,
