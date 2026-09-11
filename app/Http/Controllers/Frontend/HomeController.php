@@ -55,6 +55,12 @@ public function categoryProducts($slug)
     );
 }
 
+// public function loadProducts(Request $request)
+// {
+//     $products = Product::latest()->paginate(5);
+
+//     return view('frontend.partials.load-products', compact('products'))->render();
+// }
 public function loadProducts(Request $request)
 {
     $products = Product::latest()->paginate(5);

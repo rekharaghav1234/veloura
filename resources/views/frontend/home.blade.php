@@ -289,7 +289,7 @@
       <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
           <div class="d-flex flex-wrap justify-content-between align-items-center  mb-3">
-            <h4 class="text-uppercase">Our New Arrivals</h4>
+            <h4 class="text-uppercase">Best Selling Products</h4>
             {{-- <a href="index.html" class="btn-link">View All Products</a> --}}
           </div>
           <div class="swiper product-swiper open-up" data-aos="zoom-out">
@@ -503,7 +503,7 @@ $(window).on("scroll", function () {
     }
 });
  </script> --}}
- <script>
+ {{-- <script>
   let page = 2;
 let loading = false;
 let finished = false;
@@ -558,7 +558,84 @@ $(window).on("scroll", function () {
         }
     }
 });
+ --}}
 
+ <script>
+  let page = 2;
+  let loading = false;
+  let finished = false;
+  
+  function loadMoreProducts() {
+  
+      if (loading || finished) return;
+  
+      loading = true;
+      $("#loading").show();
+  
+      $.ajax({
+          url: "{{ route('load.products') }}?page=" + page,
+          type: "GET",
+  
+          success: function (res) {
+  
+              if ($.trim(res) === "") {
+  
+                  finished = true;
+  
+              } else {
+  
+                  $("#product-list").append(res);
+  
+                  page++;
+              }
+  
+              loading = false;
+              $("#loading").hide();
+          },
+  
+          error: function (xhr) {
+  
+              console.log("Load products error:", xhr.responseText);
+  
+              loading = false;
+              $("#loading").hide();
+          }
+      });
+  }
+  
+  
+  // ===============================
+  // DESKTOP + MOBILE SCROLL
+  // ===============================
+  $(window).on("scroll", function () {
+  
+      if (loading || finished) return;
+  
+      let scrollPosition = $(window).scrollTop() + $(window).height();
+      let documentHeight = $(document).height();
+  
+      if (scrollPosition >= documentHeight - 500) {
+          loadMoreProducts();
+      }
+  
+  });
+  
+  
+  // ===============================
+  // MOBILE TOUCH SCROLL
+  // ===============================
+  $(document).on("touchmove", function () {
+  
+      if (loading || finished) return;
+  
+      let scrollPosition = $(window).scrollTop() + $(window).height();
+      let documentHeight = $(document).height();
+  
+      if (scrollPosition >= documentHeight - 500) {
+          loadMoreProducts();
+      }
+  
+  });
 
 // =========================
 // 2. NEW ARRIVALS LOAD

@@ -119,6 +119,10 @@ Route::middleware(['admin'])->group(function () {
 Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
+    Route::get('/load-products', [HomeController::class,'loadProducts'])->name('load.products');
+    Route::get('/load-new-arrivals', [HomeController::class, 'loadNewArrivals']);
+
+    Route::get('/load-best-selling', [HomeController::class, 'loadBestSelling']);
   Route::middleware('auth')->group(function () {
     Route::view('/profile', 'frontend.profile');
 
@@ -128,10 +132,7 @@ Route::post('/logout', [LoginController::class, 'logout'])
         Route::get('/add-to-cart/{id}',
             [CartController::class, 'addToCart']);
     
-            Route::get('/load-products', [HomeController::class,'loadProducts'])->name('load.products');
-            Route::get('/load-new-arrivals', [HomeController::class, 'loadNewArrivals']);
-
-            Route::get('/load-best-selling', [HomeController::class, 'loadBestSelling']);
+           
 
         Route::get('/cart',
             [CartController::class, 'cart']);
