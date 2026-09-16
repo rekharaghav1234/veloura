@@ -18,6 +18,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\WishlistController;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 
@@ -129,6 +130,15 @@ Route::post('/logout', [LoginController::class, 'logout'])
      
         Route::post('/place-order',[CartController::class, 'placeOrder']);
 
+        Route::get('/wishlist',
+        [WishlistController::class, 'index']
+    )->name('wishlist.index');
+
+});
+
+Route::post('/wishlist/toggle/{product}',
+    [WishlistController::class, 'toggle']
+)->name('wishlist.toggle');
         Route::get('/add-to-cart/{id}',
             [CartController::class, 'addToCart']);
     
@@ -193,7 +203,7 @@ Route::post('/payment-success',
 Route::get('/my-orders', [OrderController::class, 'myOrders'])->name("my.orders");
     
     
-    });
+ 
 
   
 

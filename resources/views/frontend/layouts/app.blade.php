@@ -3,11 +3,11 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
+    {{-- <meta charset="UTF-8"> --}}
+   
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
+          <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>VELOURA</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('css/admin-orders.css') }}">
@@ -1785,6 +1785,201 @@ body {
 }
 
 
+
+}
+/* =========================================
+   RETURN & REFUND STATUS
+========================================= */
+
+.return-status-section {
+    width: 100%;
+}
+
+.return-status-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    font-size: 11px;
+    font-weight: 600;
+    color: #777;
+
+    margin-bottom: 6px;
+}
+
+.return-status-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.return-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.return-status-badge i {
+    font-size: 11px;
+}
+
+
+/* Return Requested */
+.return-status-badge.requested {
+    background: #fff3cd;
+    color: #856404;
+}
+
+
+/* Return Approved */
+.return-status-badge.approved {
+    background: #d1f7df;
+    color: #16803c;
+}
+
+
+/* Return Rejected */
+.return-status-badge.rejected {
+    background: #fde2e2;
+    color: #c62828;
+}
+
+
+/* Pickup Scheduled */
+.return-status-badge.scheduled {
+    background: #eeeaff;
+    color: #5b4bb7;
+}
+
+
+/* Pickup In Progress */
+.return-status-badge.progress {
+    background: #dceeff;
+    color: #1769aa;
+}
+
+
+/* Pickup Completed */
+.return-status-badge.completed {
+    background: #e5e7eb;
+    color: #4b5563;
+}
+
+
+/* Refund Pending */
+.return-status-badge.refund-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+
+/* Refund Processing */
+.return-status-badge.refund-processing {
+    background: #e4e7ff;
+    color: #4338ca;
+}
+
+
+/* Refund Completed */
+.return-status-badge.refunded {
+    background: #d8f5e5;
+    color: #087f3f;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .return-status-section {
+        margin-top: 4px;
+    }
+
+    .return-status-title {
+        justify-content: flex-start;
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .return-status-list {
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .return-status-badge {
+        font-size: 10px;
+        padding: 5px 9px;
+    }
+
+    .return-status-badge i {
+        font-size: 10px;
+    }
+
+}
+
+
+    .wishlist-btn {
+        border: none;
+        background: #fff;
+        cursor: pointer;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.25s ease;
+    }
+
+    .wishlist-btn svg {
+        transition: all 0.25s ease;
+    }
+
+    .wishlist-btn:hover {
+        transform: scale(1.08);
+    }
+
+    .wishlist-btn.active {
+        background: #fff;
+    }
+
+    .wishlist-btn.active svg {
+        fill: #40dc35;
+        stroke: #4bdc35;
+    }
+
+    .wishlist-btn.active use {
+        fill: #35dc35;
+    } 
+    .wishlist-btn svg {
+    color: #4B342C;
+}
+/* .product-image-box{
+    position: relative;
+} */
+
+.wishlist-btn.active svg {
+    color: #B76E79;
+}
+
+.wishlist-btn.active svg use {
+    fill: #B76E79;
 }
 
     </style>
@@ -2055,7 +2250,55 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-
+<script>
+    document.addEventListener('click', function (e) {
+    
+        const button = e.target.closest('.wishlist-btn');
+    
+        if (!button) return;
+    
+        e.preventDefault();
+        e.stopPropagation();
+    
+        const productId = button.dataset.productId;
+    
+        fetch('/wishlist/toggle/' + productId, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            console.log('HTTP Status:', response.status);
+            return response.json();
+        })
+        .then(data => {
+    
+            console.log('Wishlist Response:', data);
+    
+            if (data.login_required) {
+                window.location.href = '/login';
+                return;
+            }
+    
+            if (data.wishlisted) {
+                button.classList.add('active');
+                button.setAttribute('aria-label', 'Remove from wishlist');
+            } else {
+                button.classList.remove('active');
+                button.setAttribute('aria-label', 'Add to wishlist');
+            }
+        })
+        .catch(error => {
+            console.error('Wishlist Error:', error);
+        });
+    
+    });
+    </script>
+    
 
 </body>
 </html>

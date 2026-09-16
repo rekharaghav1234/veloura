@@ -63,7 +63,10 @@ public function categoryProducts($slug)
 // }
 public function loadProducts(Request $request)
 {
-    $products = Product::latest()->paginate(5);
+    $products = Product::withCount('reviews')
+        ->withAvg('reviews', 'rating')
+        ->latest()
+        ->paginate(5);
 
     return view('frontend.partials.load-products', compact('products'))->render();
 }

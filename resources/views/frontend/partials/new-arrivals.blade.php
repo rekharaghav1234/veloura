@@ -1,5 +1,12 @@
  
             @foreach($products as $product)
+            {{-- @php
+    $isWishlisted = auth()->check()
+        ? \App\Models\Wishlist::where('user_id', auth()->id())
+            ->where('product_id', $product->id)
+            ->exists()
+        : false;
+@endphp --}}
           <div class="swiper-slide">
             {{-- @include('frontend.partials.new-arrivals') --}}
             <div class="product-item image-zoom-effect link-effect">
@@ -7,11 +14,17 @@
                 <img src="{{ asset('uploads/products/'.$product->first_image) }}"
                 alt="{{ $product->name }}"
                 class="product-image img-fluid product-img-fixed">
-                <a href="index.html" class="btn-icon btn-wishlist">
-                  <svg width="24" height="24" viewBox="0 0 24 24">
+                <button
+                type="button"
+                class="btn-icon btn-wishlist wishlist-btn"
+                data-product-id="{{ $product->id }}"
+                aria-label="Add to wishlist">
+            
+                <svg width="24" height="24" viewBox="0 0 24 24">
                     <use xlink:href="#heart"></use>
-                  </svg>
-                </a>
+                </svg>
+            
+            </button>
                 <div class="product-content">
                   <h5 class="element-title text-uppercase fs-5 mt-3">
                     {{ $product->name }}
@@ -26,6 +39,4 @@
           </div>
           @endforeach
        
-        {{-- </div>
-        <div class="swiper-pagination"></div>
-      </div> --}}
+         

@@ -7,28 +7,28 @@ use App\Models\OrderItem;
 
 class Order extends Model
 {
+    
     protected $fillable = [
-
         'user_id',
         'name',
         'email',
         'phone',
-
         'address',
-
         'total_amount',
         'payment_method',
         'status',
-
-        // 'delivered_at',
-
-        // 'return_request_status',
-        // 'return_approval_status',
-        // 'return_process_status'
+        'delivered_at',
+        'return_request_status',
+        'return_approval_status',
+        'return_process_status',
     ];
 
     public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
+    public function returnRequest()
+{
+    return $this->hasOne(ReturnRequest::class);
+}
 }

@@ -316,6 +316,38 @@
 
         </a>
 
+        <!-- USER MORE MENU -->
+<div class="dropdown">
+
+    <button
+        type="button"
+        class="mobile-icon border-0 bg-transparent"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        aria-label="More Menu"
+    >
+        <i class="bi bi-three-dots-vertical"></i>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end mobile-user-dropdown">
+
+        <li>
+            <a class="dropdown-item" href="/">
+                <i class="bi bi-house me-2"></i>
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-item" href="{{ route('wishlist.index') }}">
+                <i class="bi bi-heart me-2"></i>
+                Wishlist
+            </a>
+        </li>
+
+    </ul>
+
+</div>
     @else
 
         <!-- GUEST USER -->
@@ -429,6 +461,7 @@ VELOURA
             </a>
     
         @endif
+   
             <!-- RIGHT SIDE -->
             <div class="d-flex align-items-center gap-3">
 

@@ -234,7 +234,7 @@
     
             <div class="row">
     
-                @foreach($relatedProducts as $relProduct)
+                {{-- @foreach($relatedProducts as $relProduct)
     
                     <div class="col-lg-3 col-md-4 col-6 mb-4">
     
@@ -272,7 +272,68 @@
     
                     </div>
     
-                @endforeach
+                @endforeach --}}
+                @foreach($relatedProducts as $relProduct)
+
+    @php
+        $relatedImages = json_decode($relProduct->images, true);
+
+        if (!$relatedImages) {
+            $relatedImages = explode(
+                ',',
+                str_replace(['[', ']', '"'], '', $relProduct->images)
+            );
+        }
+
+        $relatedImages = array_filter(array_map('trim', $relatedImages));
+
+        $relatedImage = !empty($relatedImages)
+            ? reset($relatedImages)
+            : null;
+    @endphp
+
+    <div class="col-lg-3 col-md-4 col-6 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <a href="{{ route('product.details', $relProduct->slug) }}">
+
+                @if($relatedImage)
+                    <img src="{{ asset('uploads/products/'.$relatedImage) }}"
+                         class="card-img-top"
+                         alt="{{ $relProduct->name }}"
+                         style="height:300px; width:100%; object-fit:cover;">
+                @else
+                    <div class="d-flex align-items-center justify-content-center bg-light"
+                         style="height:300px;">
+                        <span class="text-muted">No Image</span>
+                    </div>
+                @endif
+
+            </a>
+
+            <div class="card-body text-center">
+
+                <h6 class="mb-2">
+                    {{ $relProduct->name }}
+                </h6>
+
+                <p class="fw-bold text-dark mb-2">
+                    ₹{{ number_format($relProduct->price, 2) }}
+                </p>
+
+                <a href="{{ route('product.details', $relProduct->slug) }}"
+                   class="btn btn-dark btn-sm">
+                    View Product
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+@endforeach
     
             </div>
     

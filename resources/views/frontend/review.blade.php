@@ -36,7 +36,7 @@
                         <!-- Product -->
                         <div class="d-flex align-items-center mb-4">
 
-                            <img src="{{ asset('uploads/products/'.$product->image) }}"
+                            <img src="{{ asset('uploads/products/'.$product->first_image) }}"
                                  width="80"
                                  height="80"
                                  class="rounded-3 border me-3"
