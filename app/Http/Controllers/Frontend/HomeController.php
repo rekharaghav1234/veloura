@@ -5,41 +5,43 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
-
+// use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Banner;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 class HomeController extends Controller
 {
   
-public function productDetails($slug)
-{
-    // Eager load: category, reviews (with user)
-    $product = Product::with(['category', 'reviews.user'])
-                      ->where('slug', $slug)
-                      ->firstOrFail();
-
-    // Average rating & review count
-    $avgRating = $product->reviews->avg('rating') ?? 0;
-    $reviewCount = $product->reviews->count();
-
-    // Related products (same category, exclude current)
-    $relatedProducts = Product::where('id', '!=', $product->id)
- 
-    ->where('category_id', $product->category_id)
-    ->where('gender', $product->gender)
-   
-    ->latest()
-    ->limit(6)
-    ->get();
-    // dd($relatedProducts);
-    return view('frontend.product-details', compact(
-        'product',
-        'avgRating',
-        'reviewCount',
-        'relatedProducts'
-    ));
-}
+    public function productDetails($slug)
+    {
+        // Product + category + reviews
+        $product = Product::with(['category', 'reviews.user'])
+                          ->where('slug', $slug)
+                          ->firstOrFail();
+    
+        // Average rating & review count
+        $avgRating = $product->reviews->avg('rating') ?? 0;
+        $reviewCount = $product->reviews->count();
+    
+        // Related products
+        $relatedProducts = Product::withCount('reviews')
+            ->withAvg('reviews', 'rating')
+            ->where('id', '!=', $product->id)
+            ->where('category_id', $product->category_id)
+            ->where('gender', $product->gender)
+            ->latest()
+            ->limit(6)
+            ->get();
+    
+        return view('frontend.product-details', compact(
+            'product',
+            'avgRating',
+            'reviewCount',
+            'relatedProducts'
+        ));
+    }
 public function categoryProducts($slug)
 {
     $category = Category::where(
@@ -68,7 +70,18 @@ public function loadProducts(Request $request)
         ->latest()
         ->paginate(5);
 
-    return view('frontend.partials.load-products', compact('products'))->render();
+    $wishlistProductIds = [];
+
+    if (Auth::check()) {
+        $wishlistProductIds = Wishlist::where('user_id', Auth::id())
+            ->pluck('product_id')
+            ->toArray();
+    }
+
+    return view(
+        'frontend.partials.load-products',
+        compact('products', 'wishlistProductIds')
+    )->render();
 }
 public function loadBestSelling()
 {
@@ -92,8 +105,13 @@ public function loadBestSelling()
         ->orderByDesc('total_sold')
         ->take(8)
         ->get();
+        $wishlistProductIds = Auth::check()
+        ? Wishlist::where('user_id', Auth::id())
+            ->pluck('product_id')
+            ->toArray()
+        : [];
         
-    return view('frontend.partials.best-selling', compact('bestSellingProducts'))->render();
+    return view('frontend.partials.best-selling', compact('bestSellingProducts','wishlistProductIds'))->render();
 }
 
 public function loadNewArrivals()
@@ -103,8 +121,12 @@ public function loadNewArrivals()
         ->latest()
         ->take(8)
         ->get();
-
-    return view('frontend.partials.new-arrivals', compact('newArrivals'))->render();
+        $wishlistProductIds = Auth::check()
+        ? Wishlist::where('user_id', Auth::id())
+            ->pluck('product_id')
+            ->toArray()
+        : [];
+    return view('frontend.partials.new-arrivals', compact('newArrivals','wishlistProductIds'))->render();
 }
 
 public function home()

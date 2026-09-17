@@ -1,216 +1,207 @@
-
 @extends('frontend.layouts.app')
 
 @section('content')
-  
+    <div class="preloader text-white fs-6 text-uppercase overflow-hidden"></div>
 
-  <div class="preloader text-white fs-6 text-uppercase overflow-hidden"></div>
+    <div class="search-popup">
+        <div class="search-popup-container">
 
-  <div class="search-popup">
-    <div class="search-popup-container">
+            <form role="search" method="get" class="form-group" action="">
+                <input type="search" id="search-form" class="form-control border-0 border-bottom"
+                    placeholder="Type and press enter" value="" name="s" />
+                <button type="submit" class="search-submit border-0 position-absolute bg-white"
+                    style="top: 15px;right: 15px;"><svg class="search" width="24" height="24">
+                        <use xlink:href="#search"></use>
+                    </svg></button>
+            </form>
 
-      <form role="search" method="get" class="form-group" action="">
-        <input type="search" id="search-form" class="form-control border-0 border-bottom"
-          placeholder="Type and press enter" value="" name="s" />
-        <button type="submit" class="search-submit border-0 position-absolute bg-white"
-          style="top: 15px;right: 15px;"><svg class="search" width="24" height="24">
-            <use xlink:href="#search"></use>
-          </svg></button>
-      </form>
+            <h5 class="cat-list-title">Browse Categories</h5>
 
-      <h5 class="cat-list-title">Browse Categories</h5>
+            <ul class="cat-list">
+                <li class="cat-list-item">
+                    <a href="#" title="Jackets">Jackets</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="T-shirts">T-shirts</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Handbags">Handbags</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Accessories">Accessories</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Cosmetics">Cosmetics</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Dresses">Dresses</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Jumpsuits">Jumpsuits</a>
+                </li>
+            </ul>
 
-      <ul class="cat-list">
-        <li class="cat-list-item">
-          <a href="#" title="Jackets">Jackets</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="T-shirts">T-shirts</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Handbags">Handbags</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Accessories">Accessories</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Cosmetics">Cosmetics</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Dresses">Dresses</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Jumpsuits">Jumpsuits</a>
-        </li>
-      </ul>
-
-    </div>
-  </div>
-
-  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
-    <div class="offcanvas-header justify-content-center">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div class="order-md-last">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
-          <span class="badge bg-primary rounded-pill">3</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Growers cider</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$12</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Fresh grapes</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$8</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">Heinz tomato ketchup</h6>
-              <small class="text-body-secondary">Brief description</small>
-            </div>
-            <span class="text-body-secondary">$5</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between">
-            <span>Total (USD)</span>
-            <strong>$20</strong>
-          </li>
-        </ul>
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Checkout</button>
-      </div>
-    </div>
-  </div>
-
-  <section class="d-none d-lg-block py-5">
-    <div class="container">
-    <div id="heroBanner"
-         class="carousel slide"
-         data-bs-ride="carousel">
-    
-    <div class="carousel-inner">
-    
-    @foreach($banners as $key=>$banner)
-    
-    <div class="carousel-item {{ $key==0?'active':'' }}">
-    
-      <img src="{{ asset('uploads/banners/'.$banner->image) }}"
-      class="w-100"
-      style="height:450px;object-fit:cover;">
-    
-    <div class="carousel-caption">
-    
-    <h1>{{ $banner->title }}</h1>
-    
-    <p>{{ $banner->subtitle }}</p>
-    
-    <a href="{{ $banner->button_link }}"
-    class="btn btn-dark">
-    
-    {{ $banner->button_text }}
-    
-    </a>
-    
-    </div>
-    
-    </div>
-    
-    @endforeach
-    
-    </div>
-    
-    <button class="carousel-control-prev"
-    data-bs-target="#heroBanner"
-    data-bs-slide="prev">
-    
-    <span class="carousel-control-prev-icon"></span>
-    
-    </button>
-    
-    <button class="carousel-control-next"
-    data-bs-target="#heroBanner"
-    data-bs-slide="next">
-    
-    <span class="carousel-control-next-icon"></span>
-    
-    </button>
-    
-    </div>
-    </div>
-    </section>
-    <section class="categories ">
-      <div class="container">
-        <div class="open-up" data-aos="zoom-out">
-          <div class="row">
-            <div class="col-md-4 col-4">
-              <div class="cat-item text-center">
-                  <div class="image-holder">
-                      <a href="{{ url('/search?q=Men') }}">
-                          <img src="images/cat-item1.jpg"
-                               class="img-fluid category-circle"
-                               alt="Men">
-                      </a>
-                  </div>
-          
-                  <div class="mt-2">
-                      <a href="{{ url('/search?q=Men') }}"
-                         class="category-btn">
-                          Men
-                      </a>
-                  </div>
-              </div>
-          </div>
-          
-          <div class="col-md-4 col-4">
-              <div class="cat-item text-center">
-                  <div class="image-holder">
-                      <a href="{{ url('/search?q=Women') }}">
-                          <img src="images/cat-item2.jpg"
-                               class="img-fluid category-circle"
-                               alt="Women">
-                      </a>
-                  </div>
-          
-                  <div class="mt-2">
-                      <a href="{{ url('/search?q=Women') }}"
-                         class="category-btn">
-                          Women
-                      </a>
-                  </div>
-              </div>
-          </div>
-          
-          <div class="col-md-4 col-4">
-              <div class="cat-item text-center">
-                  <div class="image-holder">
-                      <a href="{{ url('/search?q=Accessories') }}">
-                          <img src="images/cat-item3.jpg"
-                               class="img-fluid category-circle"
-                               alt="Accessories">
-                      </a>
-                  </div>
-          
-                  <div class="mt-2">
-                      <a href="{{ url('/search?q=Accessories') }}"
-                         class="category-btn">
-                          Accessories
-                      </a>
-                  </div>
-              </div>
-          </div>
-          </div>
         </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
+        <div class="offcanvas-header justify-content-center">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Your cart</span>
+                    <span class="badge bg-primary rounded-pill">3</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Growers cider</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$12</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Fresh grapes</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$8</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Heinz tomato ketchup</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+                        <strong>$20</strong>
+                    </li>
+                </ul>
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero-section py-4">
+      <div class="container">
+  
+          <div id="heroBanner"
+               class="carousel slide hero-banner"
+               data-bs-ride="carousel">
+  
+              <div class="carousel-inner">
+  
+                  @foreach($banners as $key => $banner)
+  
+                      <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+  
+                          <img
+                              src="{{ asset('uploads/banners/'.$banner->image) }}"
+                              class="hero-banner-img"
+                              alt="{{ $banner->title }}"
+                          >
+  
+                          <div class="carousel-caption">
+                              <h1>{{ $banner->title }}</h1>
+                              <p>{{ $banner->subtitle }}</p>
+  
+                              @if($banner->button_text)
+                                  <a href="{{ $banner->button_link }}"
+                                     class="btn btn-dark">
+                                      {{ $banner->button_text }}
+                                  </a>
+                              @endif
+                          </div>
+  
+                      </div>
+  
+                  @endforeach
+  
+              </div>
+  
+              <button class="carousel-control-prev"
+                      type="button"
+                      data-bs-target="#heroBanner"
+                      data-bs-slide="prev">
+  
+                  <span class="carousel-control-prev-icon"></span>
+  
+              </button>
+  
+              <button class="carousel-control-next"
+                      type="button"
+                      data-bs-target="#heroBanner"
+                      data-bs-slide="next">
+  
+                  <span class="carousel-control-next-icon"></span>
+  
+              </button>
+  
+          </div>
+  
       </div>
+  </section>
+    <section class="categories ">
+        <div class="container">
+            <div class="open-up" data-aos="zoom-out">
+                <div class="row">
+                    <div class="col-md-4 col-4">
+                        <div class="cat-item text-center">
+                            <div class="image-holder">
+                                <a href="{{ url('/search?q=Men') }}">
+                                    <img src="images/cat-item1.jpg" class="img-fluid category-circle" alt="Men">
+                                </a>
+                            </div>
+
+                            <div class="mt-2">
+                                <a href="{{ url('/search?q=Men') }}" class="category-btn">
+                                    Men
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-4">
+                        <div class="cat-item text-center">
+                            <div class="image-holder">
+                                <a href="{{ url('/search?q=Women') }}">
+                                    <img src="images/cat-item2.jpg" class="img-fluid category-circle" alt="Women">
+                                </a>
+                            </div>
+
+                            <div class="mt-2">
+                                <a href="{{ url('/search?q=Women') }}" class="category-btn">
+                                    Women
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-4">
+                        <div class="cat-item text-center">
+                            <div class="image-holder">
+                                <a href="{{ url('/search?q=Accessories') }}">
+                                    <img src="images/cat-item3.jpg" class="img-fluid category-circle" alt="Accessories">
+                                </a>
+                            </div>
+
+                            <div class="mt-2">
+                                <a href="{{ url('/search?q=Accessories') }}" class="category-btn">
+                                    Accessories
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  {{-- <section class="categories overflow-hidden">
+    {{-- <section class="categories overflow-hidden">
     <div class="container">
       <div class="open-up" data-aos="zoom-out">
         <div class="row">
@@ -260,88 +251,85 @@
       </div>
     </div>
   </section> --}}
-  <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
-    <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-center  mb-3">
-        <h4 class="text-uppercase">Our New Arrivals</h4>
-        {{-- <a href="index.html" class="btn-link">View All Products</a> --}}
-      </div>
-      <div class="swiper product-swiper open-up" data-aos="zoom-out">
-        <div class="swiper-wrapper d-flex" id="new-arrival-section">
-          @include('frontend.partials.new-arrivals')
-        </div>
-        <div class="swiper-pagination"></div>
-      </div>
-
-    
-      <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
-          <use xlink:href="#arrow-left"></use>
-        </svg></div>
-      <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
-          <use xlink:href="#arrow-right"></use>
-        </svg></div>
-    </div>
-  </section>
-
-
-  {{-- <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
-    <div class="container"> --}}
-      <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+    <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
-          <div class="d-flex flex-wrap justify-content-between align-items-center  mb-3">
-            <h4 class="text-uppercase">Best Selling Products</h4>
-            {{-- <a href="index.html" class="btn-link">View All Products</a> --}}
-          </div>
-          <div class="swiper product-swiper open-up" data-aos="zoom-out">
-            <div class="swiper-wrapper d-flex" id="best-selling-section">
-              @include('frontend.partials.best-selling')
+            <div class="d-flex flex-wrap justify-content-between align-items-center  mb-3">
+                <h4 class="text-uppercase">Our New Arrivals</h4>
+                {{-- <a href="index.html" class="btn-link">View All Products</a> --}}
             </div>
-            <div class="swiper-pagination"></div>
-          </div>
-    
-        
-          <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
-              <use xlink:href="#arrow-left"></use>
-            </svg></div>
-          <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
-              <use xlink:href="#arrow-right"></use>
-            </svg></div>
-        </div>
-      </section>
-  <section class="py-5" id="#all-products">
-    <div class="container">
-        <h3 class="mb-4">All Products</h3>
-
-        <div class="row" id="product-list">
-          @include('frontend.partials.load-products')
-        </div>
-        <div id="loading"
-        class="text-center py-4"
-        style="display:none;">
-        
-        <div class="spinner-border text-dark"
-        role="status">
-        
-        <span class="visually-hidden">
-        
-        Loading...
-        
-        </span>
-        
-        </div>
-        
-        <p class="mt-2 mb-0">
-        
-        Loading Products...
-        
-        </p>
-        
-        </div>
-    </div>
-</section>
+            <div class="swiper product-swiper open-up" data-aos="zoom-out">
+                <div class="swiper-wrapper d-flex" id="new-arrival-section">
+                    @include('frontend.partials.new-arrivals')
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
 
 
-  {{-- <section class="video py-5 overflow-hidden">
+            <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+                    <use xlink:href="#arrow-left"></use>
+                </svg></div>
+            <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+                    <use xlink:href="#arrow-right"></use>
+                </svg></div>
+        </div>
+    </section>
+
+
+    {{-- <section id="best-sellers" class="best-sellers product-carousel py-5 position-relative overflow-hidden">
+    <div class="container"> --}}
+    <section id="new-arrival" class="new-arrival product-carousel  position-relative overflow-hidden">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-between align-items-center  mb-3">
+                <h4 class="text-uppercase">Best Selling Products</h4>
+                {{-- <a href="index.html" class="btn-link">View All Products</a> --}}
+            </div>
+            <div class="swiper product-swiper open-up" data-aos="zoom-out">
+                <div class="swiper-wrapper d-flex" id="best-selling-section">
+                    @include('frontend.partials.best-selling')
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+
+            <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24">
+                    <use xlink:href="#arrow-left"></use>
+                </svg></div>
+            <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24">
+                    <use xlink:href="#arrow-right"></use>
+                </svg></div>
+        </div>
+    </section>
+    <section class="py-5" id="all-products">
+        <div class="container">
+            <h3 class="mb-4">All Products</h3>
+
+            <div class="row" id="product-list">
+                @include('frontend.partials.load-products')
+            </div>
+            <div id="loading" class="text-center py-4" style="display:none;">
+
+                <div class="spinner-border text-dark" role="status">
+
+                    <span class="visually-hidden">
+
+                        Loading...
+
+                    </span>
+
+                </div>
+
+                <p class="mt-2 mb-0">
+
+                    Loading Products...
+
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+
+    {{-- <section class="video py-5 overflow-hidden">
     <div class="container-fluid">
       <div class="row">
         <div class="video-content open-up" data-aos="zoom-out">
@@ -455,13 +443,13 @@
     </div>
   </section> --}}
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/SmoothScroll.js"></script>
- 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <script src="js/script.min.js"></script>
- {{-- <script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/SmoothScroll.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="js/script.min.js"></script>
+    {{-- <script>
   let page = 2;
 let loading = false;
 let finished = false;
@@ -503,7 +491,7 @@ $(window).on("scroll", function () {
     }
 });
  </script> --}}
- {{-- <script>
+    {{-- <script>
   let page = 2;
 let loading = false;
 let finished = false;
@@ -560,123 +548,123 @@ $(window).on("scroll", function () {
 });
  --}}
 
- <script>
-  let page = 2;
-  let loading = false;
-  let finished = false;
-  
-  function loadMoreProducts() {
-  
-      if (loading || finished) return;
-  
-      loading = true;
-      $("#loading").show();
-  
-      $.ajax({
-          url: "{{ route('load.products') }}?page=" + page,
-          type: "GET",
-  
-          success: function (res) {
-  
-              if ($.trim(res) === "") {
-  
-                  finished = true;
-  
-              } else {
-  
-                  $("#product-list").append(res);
-  
-                  page++;
-              }
-  
-              loading = false;
-              $("#loading").hide();
-          },
-  
-          error: function (xhr) {
-  
-              console.log("Load products error:", xhr.responseText);
-  
-              loading = false;
-              $("#loading").hide();
-          }
-      });
-  }
-  
-  
-  // ===============================
-  // DESKTOP + MOBILE SCROLL
-  // ===============================
-  $(window).on("scroll", function () {
-  
-      if (loading || finished) return;
-  
-      let scrollPosition = $(window).scrollTop() + $(window).height();
-      let documentHeight = $(document).height();
-  
-      if (scrollPosition >= documentHeight - 500) {
-          loadMoreProducts();
-      }
-  
-  });
-  
-  
-  // ===============================
-  // MOBILE TOUCH SCROLL
-  // ===============================
-  $(document).on("touchmove", function () {
-  
-      if (loading || finished) return;
-  
-      let scrollPosition = $(window).scrollTop() + $(window).height();
-      let documentHeight = $(document).height();
-  
-      if (scrollPosition >= documentHeight - 500) {
-          loadMoreProducts();
-      }
-  
-  });
+    <script>
+        let page = 2;
+        let loading = false;
+        let finished = false;
 
-// =========================
-// 2. NEW ARRIVALS LOAD
-// =========================
-function loadNewArrivals() {
+        function loadMoreProducts() {
 
-    if (newArrivalLoaded) return;
+            if (loading || finished) return;
 
-    $.ajax({
-        url: "/load-new-arrivals",
+            loading = true;
+            $("#loading").show();
 
-        success: function (res) {
-            $("#new-arrival-section").html(res).fadeIn();
+            $.ajax({
+                url: "{{ route('load.products') }}?page=" + page,
+                type: "GET",
 
-            newArrivalLoaded = true;
+                success: function(res) {
 
-            loadBestSelling(); // 👉 next step trigger
+                    if ($.trim(res) === "") {
+
+                        finished = true;
+
+                    } else {
+
+                        $("#product-list").append(res);
+
+                        page++;
+                    }
+
+                    loading = false;
+                    $("#loading").hide();
+                },
+
+                error: function(xhr) {
+
+                    console.log("Load products error:", xhr.responseText);
+
+                    loading = false;
+                    $("#loading").hide();
+                }
+            });
         }
-    });
-}
 
 
-// =========================
-// 3. BEST SELLING LOAD
-// =========================
-function loadBestSelling() {
+        // ===============================
+        // DESKTOP + MOBILE SCROLL
+        // ===============================
+        $(window).on("scroll", function() {
 
-    if (bestSellingLoaded) return;
+            if (loading || finished) return;
 
-    $.ajax({
-        url: "/load-best-selling",
+            let scrollPosition = $(window).scrollTop() + $(window).height();
+            let documentHeight = $(document).height();
 
-        success: function (res) {
-            $("#best-selling-section").html(res).fadeIn();
+            if (scrollPosition >= documentHeight - 500) {
+                loadMoreProducts();
+            }
 
-            bestSellingLoaded = true;
+        });
+
+
+        // ===============================
+        // MOBILE TOUCH SCROLL
+        // ===============================
+        $(document).on("touchmove", function() {
+
+            if (loading || finished) return;
+
+            let scrollPosition = $(window).scrollTop() + $(window).height();
+            let documentHeight = $(document).height();
+
+            if (scrollPosition >= documentHeight - 500) {
+                loadMoreProducts();
+            }
+
+        });
+
+        // =========================
+        // 2. NEW ARRIVALS LOAD
+        // =========================
+        function loadNewArrivals() {
+
+            if (newArrivalLoaded) return;
+
+            $.ajax({
+                url: "/load-new-arrivals",
+
+                success: function(res) {
+                    $("#new-arrival-section").html(res).fadeIn();
+
+                    newArrivalLoaded = true;
+
+                    loadBestSelling(); // 👉 next step trigger
+                }
+            });
         }
-    });
-}
- </script>
-  @endsection
+
+
+        // =========================
+        // 3. BEST SELLING LOAD
+        // =========================
+        function loadBestSelling() {
+
+            if (bestSellingLoaded) return;
+
+            $.ajax({
+                url: "/load-best-selling",
+
+                success: function(res) {
+                    $("#best-selling-section").html(res).fadeIn();
+
+                    bestSellingLoaded = true;
+                }
+            });
+        }
+    </script>
+@endsection
 {{-- </body>
 
 </html> --}}

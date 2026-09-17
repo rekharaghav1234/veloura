@@ -59,7 +59,7 @@ public function update(Request $request, $id)
     $banner = Banner::findOrFail($id);
 
     $request->validate([
-        'title' => 'required',
+        'title' => 'nullable',
         'subtitle' => 'nullable',
         'button_text' => 'nullable',
         'button_link' => 'nullable',

@@ -6,6 +6,7 @@
     color: var(--text-dark);
 }
 
+
 .hero-content p{
     color: #6E5A53;
 }
@@ -18,7 +19,9 @@
     font-size:24px;
     color:#000;
 }
-
+body {
+    padding-top: 90px;
+}
 .search-input{
     height:45px;
     border-radius:12px 0 0 12px;

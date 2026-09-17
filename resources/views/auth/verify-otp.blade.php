@@ -25,9 +25,7 @@
                     <form method="POST" action="/verify-otp">
                         @csrf
 
-                        <input type="hidden"
-                               name="phone"
-                               value="{{ $phone }}">
+                        <input type="hidden" name="email" value="{{ $email }}">
 
                         <div class="mb-3">
 
@@ -54,10 +52,10 @@
                     {{-- Demo OTP only for testing --}}
                     <div class="text-center mt-3">
 
-                        <small class="text-muted">
+                        {{-- <small class="text-muted">
                             Demo OTP:
                             <b>{{ $otp }}</b>
-                        </small>
+                        </small> --}}
 
                     </div>
 

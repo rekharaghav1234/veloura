@@ -28,17 +28,20 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        dd('LOGIN METHOD HIT');
         $credentials = $request->only('email', 'password');
     
         if (Auth::attempt($credentials)) {
-
+    
             $request->session()->regenerate();
-        
-            if (Auth::user()->role == 'admin') {
+    
+            dd(Auth::user()->toArray());
+    
+            if (Auth::user()->role === 'admin') {
                 return redirect('/admin/dashboard');
             }
-        
-            return redirect()->intended('/');
+    
+            return redirect('/');
         }
     
         return back()->withErrors([

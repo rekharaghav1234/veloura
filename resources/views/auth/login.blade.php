@@ -29,14 +29,13 @@
                     
                         <div class="mb-4">
                             <label class="form-label fw-semibold">
-                                Mobile Number
+                                Email
                             </label>
-                    
-                            <input type="text"
-                                   name="phone"
-                                   class="form-control form-control-lg rounded-3"
-                                   placeholder="Enter Mobile Number"
-                                   required>
+                            <input type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter your email"
+                            required>
                         </div>
                     
                         <button type="submit"

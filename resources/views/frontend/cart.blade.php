@@ -80,7 +80,7 @@
                             <a href="/cart/remove/{{ $cart->id }}"
                                class="btn-remove"
                                onclick="return confirm('Remove this item?')">
-                                <i class="bi bi-trash3"></i> Remove
+                                <i class="bi bi-trash3"></i>
                             </a>
                         </div>
 

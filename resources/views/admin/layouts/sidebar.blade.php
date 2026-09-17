@@ -1,70 +1,73 @@
 <div id="sidebar" class="admin-sidebar">
-<div class="col-md-3 col-lg-2 px-0">
 
-    <div class="bg-dark text-white min-vh-100 p-3">
+    
 
-        <h4 class="fw-bold text-center mb-4">
-            Admin Panel
-        </h4>
+        <div class="admin-sidebar-inner min-vh-100 p-3">
 
-        <ul class="nav flex-column">
+            <h4 class="admin-sidebar-title fw-bold text-center mb-4">
+                VELOURA
+            </h4>
 
-            <li class="nav-item mb-2">
-                <a href="/admin/dashboard"
-                   class="nav-link text-white">
-                    <i class="bi bi-speedometer2 me-2"></i>
-                    Dashboard
-                </a>
-            </li>
+            <div class="admin-sidebar-subtitle">
+                ADMIN PANEL
+            </div>
 
-            <li class="nav-item mb-2">
-                <a href="/admin/orders"
-                   class="nav-link text-white">
-                    <i class="bi bi-bag-check me-2"></i>
-                    Orders
-                </a>
-            </li>
+            <ul class="nav flex-column">
 
-            <li class="nav-item mb-2">
-                <a href="/admin/products"
-                   class="nav-link text-white">
-                    <i class="bi bi-box-seam me-2"></i>
-                    Products
-                </a>
-            </li>
+                <li class="nav-item mb-2">
+                    <a href="/admin/dashboard"
+                       class="nav-link admin-sidebar-link">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
 
-            <li class="nav-item mb-2">
-                <a href="/admin/categories"
-                   class="nav-link text-white">
-                    <i class="bi bi-grid me-2"></i>
-                    Categories
-                </a>
-            </li>
+                <li class="nav-item mb-2">
+                    <a href="/admin/orders"
+                       class="nav-link admin-sidebar-link">
+                        <i class="bi bi-bag-check"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
 
-            <li class="nav-item mb-2">
-                <a href="/admin/orders?return=requested"
-                   class="nav-link text-warning">
-                    <i class="bi bi-arrow-return-left me-2"></i>
-                    Return Requests
-                </a>
-            </li>
+                <li class="nav-item mb-2">
+                    <a href="/admin/products"
+                       class="nav-link admin-sidebar-link">
+                        <i class="bi bi-box-seam"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
 
-            <li class="nav-item mb-2">
-                <a href="/admin/users"
-                   class="nav-link text-white">
-                    <i class="bi bi-people me-2"></i>
-                    Users
-                </a>
-            </li>
+                <li class="nav-item mb-2">
+                    <a href="/admin/categories"
+                       class="nav-link admin-sidebar-link">
+                        <i class="bi bi-grid"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
 
-        
+                <li class="nav-item mb-2">
+                    <a href="/admin/orders?return=requested"
+                       class="nav-link admin-sidebar-link return-link">
+                        <i class="bi bi-arrow-return-left"></i>
+                        <span>Return Requests</span>
+                    </a>
+                </li>
 
-            <hr>
+                <li class="nav-item mb-2">
+                    <a href="/admin/users"
+                       class="nav-link admin-sidebar-link">
+                        <i class="bi bi-people"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
 
+                <hr class="admin-sidebar-divider">
 
-        </ul>
+            </ul>
 
-    </div>
+        </div>
 
-</div>
+    
+
 </div>
