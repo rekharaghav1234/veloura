@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
 
-            $table->timestamp('delivered_at')->nullable()->after('status');
+           
 
             $table->string('return_request_status')->nullable()->after('delivered_at');
 
