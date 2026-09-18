@@ -1,68 +1,9 @@
 <?php
 
-// namespace App\Http\Controllers\Auth;
-
-// use App\Http\Controllers\Controller;
-// use Illuminate\Http\Request;
-// use App\Models\Otp;
-// use App\Models\User;
-// use Illuminate\Support\Facades\Auth;
-
-// class OtpController extends Controller
-// {
-//     public function sendOtp(Request $request)
-//     {
-//         $user = User::where('phone',$request->phone)->first();
-    
-//         if(!$user){
-//             return back()->with(
-//                 'error',
-//                 'This mobile number is not registered'
-//             );
-//         }
-    
-//         $otp = rand(1000,9999);
-    
-//         Otp::create([
-//             'phone' => $request->phone,
-//             'otp' => $otp
-//         ]);
-    
-//         return view('auth.verify-otp',[
-//             'phone' => $request->phone,
-//             'otp' => $otp
-//         ]);
-//     }
-
-//     public function verifyOtp(Request $request)
-//     {
-//         $otp = Otp::where('phone', $request->phone)
-//                   ->where('otp', $request->otp)
-//                   ->latest()
-//                   ->first();
-    
-//         if(!$otp){
-//             return back()->with('error','Invalid OTP');
-//         }
-    
-//         $user = User::where('phone',$request->phone)->first();
-    
-//         if(!$user){
-//             return redirect('/register')
-//                 ->with('error','Mobile number not registered');
-//         }
-    
-//         Auth::login($user);
-    
-//         return redirect('/');
-//     }
-// }
-
-
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Otp;
 use App\Models\User;
@@ -130,27 +71,41 @@ class OtpController extends Controller
     
         try {
     
-            Mail::raw(
-                "Your VELOURA login OTP is: {$otp}",
-                function ($message) use ($request) {
-                    $message->to($request->email)
-                            ->subject('VELOURA Login OTP');
-                }
-            );
+            $response = Http::withHeaders([
+                'api-key' => env('BREVO_API_KEY'),
+                'Content-Type' => 'application/json',
+            ])->post('https://api.brevo.com/v3/smtp/email', [
     
-            return response()->json([
-                'success' => true,
-                'message' => 'Mail sent successfully',
-                'otp' => $otp
+                'sender' => [
+                    'name' => 'VELOURA',
+                    'email' => env('MAIL_FROM_ADDRESS'),
+                ],
+    
+                'to' => [
+                    [
+                        'email' => $request->email,
+                    ],
+                ],
+    
+                'subject' => 'VELOURA Login OTP',
+    
+                'textContent' => "Your VELOURA login OTP is: {$otp}",
+            ]);
+    
+            if ($response->failed()) {
+                throw new \Exception($response->body());
+            }
+    
+            return view('auth.verify-otp', [
+                'email' => $request->email
             ]);
     
         } catch (\Throwable $e) {
     
-            return response()->json([
-                'success' => false,
-                'message' => 'Mail sending failed',
-                'error' => $e->getMessage()
-            ], 500);
+            return back()->with(
+                'error',
+                'Unable to send OTP. Please try again.'
+            );
         }
     }
 
