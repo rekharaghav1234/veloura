@@ -1635,7 +1635,12 @@ Swal.fire({
 <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}">
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/plugins.js') }}"></script>
+{{-- <script src="{{ asset('js/SmoothScroll.js') }}"></script>
+<script src="{{ asset('js/script.min.js') }}"></script> --}}
 <script src="{{ asset('js/SmoothScroll.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 <script src="{{ asset('js/script.min.js') }}"></script>
 </body>
 </html>
