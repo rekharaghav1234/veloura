@@ -19,7 +19,7 @@ return new class extends Migration
         DB::table('users')
             ->where('id', 2)
             ->update([
-                'email' => 'raghavrekha5556@gmail.com',
+                'email' => 'rekharaghav70@gmail.com',
             ]);
     }
 };
