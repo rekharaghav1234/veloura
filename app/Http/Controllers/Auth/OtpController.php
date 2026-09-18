@@ -71,41 +71,69 @@ use Illuminate\Support\Facades\Mail;
 
 class OtpController extends Controller
 {
+    // public function sendOtp(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|email'
+    //     ]);
+
+    //     $user = User::where('email', $request->email)->first();
+
+    //     if (!$user) {
+    //         return back()->with(
+    //             'error',
+    //             'This email address is not registered'
+    //         );
+    //     }
+
+    //     $otp = rand(1000, 9999);
+
+    //     Otp::create([
+    //         'email' => $request->email,
+    //         'otp' => $otp
+    //     ]);
+
+    //     // Send OTP to email
+    //     Mail::raw(
+    //         "Your VELOURA login OTP is: {$otp}",
+    //         function ($message) use ($request) {
+    //             $message->to($request->email)
+    //                     ->subject('VELOURA Login OTP');
+    //         }
+    //     );
+
+    //     return view('auth.verify-otp', [
+    //         'email' => $request->email
+    //     ]);
+    // }
     public function sendOtp(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email'
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email'
+    ]);
 
-        $user = User::where('email', $request->email)->first();
+    $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            return back()->with(
-                'error',
-                'This email address is not registered'
-            );
-        }
-
-        $otp = rand(1000, 9999);
-
-        Otp::create([
-            'email' => $request->email,
-            'otp' => $otp
-        ]);
-
-        // Send OTP to email
-        Mail::raw(
-            "Your VELOURA login OTP is: {$otp}",
-            function ($message) use ($request) {
-                $message->to($request->email)
-                        ->subject('VELOURA Login OTP');
-            }
+    if (!$user) {
+        return back()->with(
+            'error',
+            'This email address is not registered'
         );
-
-        return view('auth.verify-otp', [
-            'email' => $request->email
-        ]);
     }
+
+    $otp = rand(1000, 9999);
+
+    Otp::create([
+        'email' => $request->email,
+        'otp' => $otp
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'OTP created successfully',
+        'otp' => $otp
+    ]);
+}
 
     public function verifyOtp(Request $request)
     {
